@@ -46,14 +46,14 @@ ull h[N], p[N] = {1};
 
 void hashing(string s) {
 	int n = sz(s);
-	for (int i = 1; i <= n; i++) {
+	for (int i = 1; i <= n; ++i) {
 		p[i] = p[i - 1] * prime;
 		h[i] = h[i - 1] * prime + (s[i - 1] - 'a' + 1);
 	}
 }
 
 ull get_hash(int a, int b) {
-	return h[b] -  h[a - 1] * p[b - a + 1];
+	return h[b] - h[a - 1] * p[b - a + 1];
 }
 
 int solve() {

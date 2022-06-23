@@ -48,43 +48,43 @@ int p[N], pn[N], cn[N], ra[N], pre[N], cnt[N], c[M][N];
 
 void buildSA() {
 	int n = sz(s);
-	for (int i = 0; i < n; i++) {
-		cnt[s[i]]++;
+	for (int i = 0; i < n; ++i) {
+		++cnt[s[i]];
 	}
-	for (int i = 1; i < 300; i++) {
+	for (int i = 1; i < 300; ++i) {
 		cnt[i] += cnt[i - 1];
 	}
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; ++i) {
 		p[--cnt[s[i]]] = i;
 	}
 	c[0][p[0]] = 0;
 	int r = 1;
-	for (int i = 1; i < n; i++) {
-		if (s[p[i]] != s[p[i - 1]]) r++;
+	for (int i = 1; i < n; ++i) {
+		if (s[p[i]] != s[p[i - 1]]) ++r;
 		c[0][p[i]] = r - 1;
 	}
-	for (int k = 0; (1 << k) < n; k++) {
+	for (int k = 0; (1 << k) < n; ++k) {
 		memset(cnt, 0, sizeof(cnt));
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; ++i) {
 			pn[i] = p[i] - (1 << k);
 			if (pn[i] < 0) pn[i] += n;
-			cnt[c[k][pn[i]]]++;
+			++cnt[c[k][pn[i]]];
 		}
-		for (int i = 1; i < n; i++) {
+		for (int i = 1; i < n; ++i) {
 			cnt[i] += cnt[i - 1];
 		}
-		for (int i = n - 1; i >= 0; i--) {
+		for (int i = n - 1; i >= 0; --i) {
 			p[--cnt[c[k][pn[i]]]] = pn[i];
 		}
 		cn[p[0]] = 0;
 		r = 1;
-		for (int i = 1; i < n; i++) {
+		for (int i = 1; i < n; ++i) {
 			pii cur = {c[k][p[i]], c[k][(p[i] + (1 << k)) % n]};
 			pii prev = {c[k][p[i - 1]], c[k][(p[i - 1] + (1 << k)) % n]};
-			if (cur != prev) r++;
+			if (cur != prev) ++r;
 			cn[p[i]] = r - 1;
 		}
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; ++i) {
 			c[k + 1][i] = cn[i];
 		}
 	}
@@ -92,26 +92,26 @@ void buildSA() {
 
 void kasaiLCP() {
 	int n = sz(s);
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; ++i) {
 		ra[p[i]] = i;
 	}
 	int k = 0;
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; ++i) {
 		if (ra[i] == n - 1) {
 			k = 0;
 			continue;
 		}
 		int j = p[ra[i] + 1];
-		while (i + k < n and j + k < n and s[i + k] == s[j + k]) k++;
+		while (i + k < n and j + k < n and s[i + k] == s[j + k]) ++k;
 		pre[ra[i]] = k;
-		if (k > 0) k--;
+		if (k > 0) --k;
 	}
 }
 
 int lcp(int x, int y) {
 	int ans = 0;
 	int n = sz(s);
-	for (int i = log2(n); i >= 0; i--) {
+	for (int i = log2(n); i >= 0; --i) {
 		if (c[i][x] == c[i][y]) {
 			ans += (1 << i);
 			x += (1 << i);

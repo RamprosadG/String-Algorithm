@@ -98,11 +98,11 @@ int solve() {
 	string s; cin >> s;
 	init();
 	int n = sz(s);
-	for (int i = 1; i <= 2 * n; i++) {
+	for (int i = 1; i <= 2 * n; ++i) {
 		dp[i] = 0;
 		node[i].clear();
 	}
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; ++i) {
 		Insert(s, i);
 	}
 	printf("%d\n", call(1) - 1);

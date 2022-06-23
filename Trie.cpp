@@ -47,25 +47,25 @@ int state = 0;
 
 void Insert(int root, string &s) {
 	int n = sz(s);
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; ++i) {
 		int to = s[i] - 'a';
 		if (node[root][to] == -1) node[root][to] = ++state;
 		root = node[root][to];
-		num[root]++;
+		++num[root];
 	}
-	cnt[root]++;
+	++cnt[root];
 }
 
 void Remove(int root, string &s) {
 	int n = sz(s);
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; ++i) {
 		int to = s[i] - 'a';
 		int tem = node[root][to];
-		num[tem]--;
+		--num[tem];
 		if (num[tem] == 0) root[node][to] = -1;
 		root = tem;
 	}
-	cnt[root]--;
+	--cnt[root];
 }
 
 int Search(int root, string &s) {

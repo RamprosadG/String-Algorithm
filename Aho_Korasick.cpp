@@ -50,20 +50,20 @@ bitset<M> out[M * M];
 
 void build_aho(int n) {
 	memset(node, -1, sizeof(node));
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; ++i) {
 		int root = 0, len = strlen(pt[i]);
-		for (int j = 0; j < len; j++) {
+		for (int j = 0; j < len; ++j) {
 			int to = pt[i][j] - 'a';
 			if (node[root][to] == -1) node[root][to] = ++state;
 			root = node[root][to];
 		}
 		out[root].set(i);
 	}
-	for (int i = 0; i < 26; i++) {
+	for (int i = 0; i < 26; ++i) {
 		if (node[0][i] == -1) node[0][i] = 0;
 	}
 	queue <int> q;
-	for (int i = 0; i < 26; i++) {
+	for (int i = 0; i < 26; ++i) {
 		if (node[0][i] != -1 and node[0][i] != 0) {
 			failure[node[0][i]] = 0;
 			q.push(node[0][i]);
@@ -72,7 +72,7 @@ void build_aho(int n) {
 	while (!q.empty()) {
 		int root = q.front();
 		q.pop();
-		for (int i = 0; i < 26; i++) {
+		for (int i = 0; i < 26; ++i) {
 			if (node[root][i] != -1) {
 				int fail = failure[root];
 				while (node[fail][i] == -1) {
@@ -97,12 +97,12 @@ int findstate(int root, int to) {
 vector<int> get_result(int n) {
 	vector<int> ans(n, 0);
 	int root = 0, len = strlen(txt);
-	for (int i = 0; i < len; i++) {
+	for (int i = 0; i < len; ++i) {
 		int to = txt[i] - 'a';
 		root = findstate(root, to);
 		if (out[root] == 0) continue;
-		for (int j = 0; j < n; j++) {
-			if (out[root].test(j)) ans[j]++;
+		for (int j = 0; j < n; ++j) {
+			if (out[root].test(j)) ++ans[j];
 		}
 	}
 	return ans;
@@ -110,13 +110,13 @@ vector<int> get_result(int n) {
 
 int solve() {
 	int n; Int(n);
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; ++i) {
 		scanf("%s", pt[i]);
 	}
 	scanf("%s", txt);
 	build_aho(n);
 	vector<int> ans = get_result(n);
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; ++i) {
 		printf("%d\n", ans[i]);
 	}
 	return 0;

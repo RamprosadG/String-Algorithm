@@ -46,7 +46,7 @@ int pi[N];
 void prefix(string p) {
 	int now = -1, n = sz(p);
 	pi[0] = -1;
-	for (int i = 1; i < n; i++) {
+	for (int i = 1; i < n; ++i) {
 		while (now != -1 and p[now + 1] != p[i]) {
 			now = pi[now];
 		}
@@ -57,7 +57,7 @@ void prefix(string p) {
 
 int kmp(string t, string p) {
 	int now = -1, n = sz(p), m = sz(t), ans = 0;
-	for (int i = 0; i < m; i++) {
+	for (int i = 0; i < m; ++i) {
 		while (now != -1 and p[now + 1] != t[i]) {
 			now = pi[now];
 		}

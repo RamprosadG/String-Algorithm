@@ -67,7 +67,7 @@ void add(int p) {
 int buildPT() {
 	init();
 	int n = sz(s);
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; ++i) {
 		add(i);
 	}
 	return state - 2;

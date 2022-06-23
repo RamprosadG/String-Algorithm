@@ -45,24 +45,24 @@ int dp1[N], dp2[N];
 
 ll manach(string s) {
 	int n = sz(s);
-	for (int i = 0, l = 0, r = -1; i < n; i++) {
+	for (int i = 0, l = 0, r = -1; i < n; ++i) {
 		int k = i > r ? 1 : min(dp1[l + r - i], r - i);
 		while (0 <= i - k and i + k < n and s[i - k] == s[i + k]) {
-			k++;
+			++k;
 		}
 		dp1[i] = k--;
 		if (i + k > r) l = i - k, r = i + k;
 	}
-	for (int i = 0, l = 0, r = -1; i < n; i++) {
+	for (int i = 0, l = 0, r = -1; i < n; ++i) {
 		int k = i > r ? 0 : min(dp2[l + r - i + 1], r - i);
 		while (0 <= i - k - 1 and i + k < n and s[i - k - 1] == s[i + k]) {
-			k++;
+			++k;
 		}
 		dp2[i] = k--;
 		if (i + k > r) l = i - k - 1, r = i + k;
 	}
 	ll ans = 0;
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; ++i) {
 		ans += dp1[i] + dp2[i];
 	}
 	return ans;

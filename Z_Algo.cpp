@@ -45,9 +45,9 @@ vector<int> zfunction(string p) {
 	vector<int> z;
 	int left = 0, right = 0, n = sz(p);
 	z.resize(n, 0);
-	for (int i = 1; i < n; i++) {
+	for (int i = 1; i < n; ++i) {
 		if (i <= right) z[i] = min(z[i - left], right - i + 1);
-		while (i + z[i] < n and p[i + z[i]] == p[z[i]]) z[i]++;
+		while (i + z[i] < n and p[i + z[i]] == p[z[i]]) ++z[i];
 		if (i + z[i] - 1 > right) left = i, right = i + z[i] - 1;
 	}
 	return z;
@@ -59,8 +59,8 @@ int solve() {
 	int n = sz(p), ans = 0;
 	p += "#" + t;
 	vector<int> z = zfunction(p);
-	for (int i = 0; i < sz(p); i++) {
-		if (z[i] == n) ans++;
+	for (int i = 0; i < sz(p); ++i) {
+		if (z[i] == n) ++ans;
 	}
 	printf("%d\n", ans);
 	return 0;
