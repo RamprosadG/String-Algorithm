@@ -62,7 +62,7 @@ void Remove(int root, string &s) {
 		int to = s[i] - 'a';
 		int tem = node[root][to];
 		--num[tem];
-		if (num[tem] == 0) root[node][to] = -1;
+		if (num[tem] == 0) node[root][to] = -1;
 		root = tem;
 	}
 	--cnt[root];
